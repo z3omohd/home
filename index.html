@@ -42,16 +42,14 @@
       padding: 32px 24px 120px;
     }
 
-    /* Main Container Wide Layout */
     .container {
       width: 100%;
-      max-width: 1200px; /* توسيع العرض ليشمل كامل الشاشة */
+      max-width: 1200px;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
 
-    /* Header */
     header {
       width: 100%;
       display: flex;
@@ -101,7 +99,6 @@
       margin-top: 4px;
     }
 
-    /* Controls Bar Wide */
     .controls-bar {
       width: 100%;
       max-width: 560px;
@@ -144,11 +141,10 @@
       box-shadow: 0 0 20px rgba(99, 102, 241, 0.25);
     }
 
-    /* Wide Responsive App Grid */
     .app-grid {
       width: 100%;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* تمدد عرضي ديناميكي */
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
       gap: 20px;
     }
 
@@ -233,7 +229,6 @@
       opacity: 0.65;
     }
 
-    /* GitHub Badge */
     .github-link {
       position: absolute;
       top: 10px;
@@ -263,7 +258,6 @@
       height: 14px;
     }
 
-    /* Floating Add Button */
     .fab-add {
       position: fixed;
       bottom: 28px;
@@ -290,7 +284,6 @@
       box-shadow: 0 14px 35px rgba(99, 102, 241, 0.65);
     }
 
-    /* Modal */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -441,16 +434,14 @@
 <body>
 
   <div class="container">
-    <!-- Header -->
     <header>
       <div class="avatar-wrapper">
         <div class="avatar-img">👨‍💻</div>
       </div>
       <h1 class="header-title">مشاريع <span>z3omohd</span></h1>
-      <p class="header-sub">بوابة الوصول السريع لجميع التطبيقات والمشاريع</p>
+      <p class="header-sub">بوابة الوصول السريع المزامنة سحابياً</p>
     </header>
 
-    <!-- Controls -->
     <div class="controls-bar">
       <div class="search-box">
         <i data-lucide="search"></i>
@@ -458,19 +449,16 @@
       </div>
     </div>
 
-    <!-- Wide App Grid -->
     <div class="app-grid" id="appGrid">
       <!-- Grid items rendered dynamically -->
     </div>
   </div>
 
-  <!-- Floating Add Button -->
   <button class="fab-add" onclick="openModal()">
     <i data-lucide="plus"></i>
     إضافة مشروع جديد
   </button>
 
-  <!-- Modal -->
   <div class="modal-overlay" id="modalOverlay">
     <div class="modal-card">
       <div class="modal-header">
@@ -512,14 +500,28 @@
         </div>
 
         <div class="modal-actions">
-          <button type="submit" class="btn-submit">حفظ المشروع</button>
+          <button type="submit" class="btn-submit">حفظ السحابي</button>
           <button type="button" class="btn-cancel" onclick="closeModal()">إلغاء</button>
         </div>
       </form>
     </div>
   </div>
 
-  <script>
+  <!-- Firebase SDKs -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, collection, onSnapshot, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    // Firebase Config Connected
+    const firebaseConfig = {
+      apiKey: "AIzaSyCNTNLQKAsdaFPx04Hp4q8mr7lB2kMuvak",
+      authDomain: "home-fafc4.firebaseapp.com",
+      projectId: "home-fafc4",
+      storageBucket: "home-fafc4.firebasestorage.app",
+      messagingSenderId: "1040213399672",
+      appId: "1:1040213399672:web:77e27cd99d83f86954758d"
+    };
+
     const USERNAME = 'z3omohd';
 
     const defaultApps = [
@@ -539,9 +541,34 @@
       { id: 'timer', title: 'Timer', icon: 'timer', colors: ['#0284c7', '#2563eb'] }
     ];
 
-    let projects = JSON.parse(localStorage.getItem('z3omohd_projects')) || defaultApps;
+    let app, db;
+    let projects = [];
 
-    function renderApps(filterText = '') {
+    try {
+      app = initializeApp(firebaseConfig);
+      db = getFirestore(app);
+      listenToProjects();
+    } catch (e) {
+      console.warn("Firebase fallback mode.");
+      projects = defaultApps;
+      renderApps();
+    }
+
+    function listenToProjects() {
+      const colRef = collection(db, 'projects');
+      onSnapshot(colRef, (snapshot) => {
+        if (snapshot.empty) {
+          defaultApps.forEach(async (p) => {
+            await setDoc(doc(db, 'projects', p.id), p);
+          });
+        } else {
+          projects = snapshot.docs.map(doc => doc.data());
+          renderApps();
+        }
+      });
+    }
+
+    window.renderApps = function(filterText = '') {
       const grid = document.getElementById('appGrid');
       grid.innerHTML = '';
 
@@ -578,22 +605,22 @@
       lucide.createIcons();
     }
 
-    function openModal() {
+    window.openModal = function() {
       document.getElementById('modalOverlay').classList.add('active');
     }
 
-    function closeModal() {
+    window.closeModal = function() {
       document.getElementById('modalOverlay').classList.remove('active');
       document.getElementById('addProjectForm').reset();
     }
 
-    function autoFillTitle(val) {
+    window.autoFillTitle = function(val) {
       if(val) {
         document.getElementById('displayTitle').value = val.charAt(0).toUpperCase() + val.slice(1);
       }
     }
 
-    function handleSaveProject(e) {
+    window.handleSaveProject = async function(e) {
       e.preventDefault();
       const id = document.getElementById('repoId').value.trim();
       const title = document.getElementById('displayTitle').value.trim();
@@ -603,25 +630,21 @@
 
       if (!id || !title) return;
 
-      const newProject = {
-        id: id,
-        title: title,
-        icon: icon,
-        colors: [c1, c2]
-      };
+      const newProject = { id, title, icon, colors: [c1, c2] };
 
-      projects.unshift(newProject);
-      localStorage.setItem('z3omohd_projects', JSON.stringify(projects));
-      
-      renderApps();
+      if (db) {
+        await setDoc(doc(db, 'projects', id), newProject);
+      } else {
+        projects.unshift(newProject);
+        renderApps();
+      }
+
       closeModal();
     }
 
     document.getElementById('searchInput').addEventListener('input', (e) => {
       renderApps(e.target.value);
     });
-
-    renderApps();
   </script>
 </body>
 </html>
