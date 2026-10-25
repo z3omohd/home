@@ -1,251 +1,623 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بوابة المشاريع | z3omohd</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Lucide Icons CDN -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- Google Fonts: Readex Pro -->
-    <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Readex Pro', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مشاريع z3omohd | Launchpad</title>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Google Fonts: Plus Jakarta Sans & Tajawal -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700&family=Tajawal:wght@500;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-dark: #0b0f19;
+      --card-bg: rgba(22, 29, 47, 0.7);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --card-hover-border: rgba(255, 255, 255, 0.2);
+      --text-main: #f3f4f6;
+      --text-sub: #9ca3af;
+      --glass-glow: rgba(99, 102, 241, 0.15);
+    }
 
-    <style>
-        body {
-            font-family: 'Readex Pro', sans-serif;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Tajawal', 'Plus Jakarta Sans', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-        /* Ambient Dynamic Background Colors */
-        .ambient-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -1;
-            overflow: hidden;
-            pointer-events: none;
-        }
-        .blob {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(100px);
-            opacity: 0.35;
-            animation: float 16s infinite alternate ease-in-out;
-        }
-        .blob-1 { top: -10%; right: -10%; width: 45vw; height: 45vw; background: #818cf8; }
-        .blob-2 { bottom: -10%; left: -10%; width: 45vw; height: 45vw; background: #38bdf8; }
-        .blob-3 { top: 35%; left: 35%; width: 30vw; height: 30vw; background: #f472b6; animation-delay: -5s; }
+    body {
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(168, 85, 247, 0.1) 0%, transparent 40%);
+      background-attachment: fixed;
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px 120px;
+    }
 
-        @keyframes float {
-            0% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(3%, 8%) scale(1.05); }
-            100% { transform: translate(-3%, -3%) scale(0.95); }
-        }
+    /* Header */
+    header {
+      width: 100%;
+      max-width: 480px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 24px;
+      text-align: center;
+    }
 
-        /* Glassmorphism Effect for Buttons */
-        .glass-btn {
-            background: rgba(255, 255, 255, 0.65);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            box-shadow: 0 4px 15px -3px rgba(0, 0, 0, 0.03);
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .dark .glass-btn {
-            background: rgba(30, 41, 59, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 4px 15px -3px rgba(0, 0, 0, 0.2);
-        }
+    .avatar-wrapper {
+      position: relative;
+      margin-bottom: 12px;
+    }
 
-        .glass-btn:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 12px 25px -5px rgba(56, 189, 248, 0.25);
-            background: rgba(255, 255, 255, 0.9);
-        }
-        .dark .glass-btn:hover {
-            box-shadow: 0 12px 25px -5px rgba(56, 189, 248, 0.2);
-            background: rgba(30, 41, 59, 0.85);
-        }
+    .avatar-img {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #6366f1, #a855f7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+    }
 
-        /* Glass Header */
-        .glass-header {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-        }
-        .dark .glass-header {
-            background: rgba(15, 23, 42, 0.7);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-    </style>
+    .header-title {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .header-title span {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: linear-gradient(135deg, #ffffff, #a5b4fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .header-sub {
+      font-size: 13px;
+      color: var(--text-sub);
+      margin-top: 4px;
+    }
+
+    /* Controls Bar */
+    .controls-bar {
+      width: 100%;
+      max-width: 480px;
+      display: flex;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .search-box {
+      flex: 1;
+      position: relative;
+    }
+
+    .search-box i {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-sub);
+      width: 18px;
+      height: 18px;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 12px 42px 12px 16px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      color: #fff;
+      font-size: 14px;
+      backdrop-filter: blur(10px);
+      transition: all 0.2s ease;
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: #6366f1;
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 0 15px rgba(99, 102, 241, 0.2);
+    }
+
+    /* App Grid */
+    .app-grid {
+      width: 100%;
+      max-width: 480px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    /* App Card / Link Container */
+    .app-card-wrapper {
+      position: relative;
+      text-decoration: none;
+      display: block;
+    }
+
+    .app-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 20px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(12px);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      height: 100%;
+    }
+
+    .app-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), transparent);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .app-card-wrapper:hover .app-card,
+    .app-card-wrapper:active .app-card {
+      transform: translateY(-4px);
+      border-color: var(--card-hover-border);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4), 0 0 20px var(--glass-glow);
+    }
+
+    .app-card-wrapper:hover .app-card::before {
+      opacity: 1;
+    }
+
+    .icon-box {
+      width: 56px;
+      height: 56px;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      transition: transform 0.25s ease;
+    }
+
+    .app-card-wrapper:hover .icon-box {
+      transform: scale(1.08);
+    }
+
+    .icon-box i {
+      width: 26px;
+      height: 26px;
+      color: #ffffff;
+    }
+
+    .app-title {
+      color: var(--text-main);
+      font-size: 15px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 2px;
+      font-family: 'Plus Jakarta Sans', 'Tajawal', sans-serif;
+    }
+
+    .app-id {
+      color: var(--text-sub);
+      font-size: 11px;
+      font-family: 'Plus Jakarta Sans', monospace;
+      opacity: 0.7;
+    }
+
+    /* GitHub Repo Link Badge */
+    .github-link {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-sub);
+      text-decoration: none;
+      z-index: 2;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(4px);
+    }
+
+    .github-link:hover {
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      transform: scale(1.1);
+    }
+
+    .github-link i {
+      width: 14px;
+      height: 14px;
+    }
+
+    /* Floating Add Button */
+    .fab-add {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, #6366f1, #a855f7);
+      color: #fff;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 30px;
+      font-size: 15px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
+      cursor: pointer;
+      z-index: 10;
+      transition: all 0.25s ease;
+    }
+
+    .fab-add:hover {
+      transform: translateX(-50%) scale(1.05);
+      box-shadow: 0 12px 30px rgba(99, 102, 241, 0.6);
+    }
+
+    /* Modal Styling */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 100;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-card {
+      background: #111827;
+      border: 1px solid var(--card-border);
+      border-radius: 28px;
+      padding: 24px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+      transform: translateY(20px);
+      transition: transform 0.25s ease;
+    }
+
+    .modal-overlay.active .modal-card {
+      transform: translateY(0);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .modal-title {
+      font-size: 18px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      color: var(--text-sub);
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 13px;
+      color: var(--text-sub);
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 12px 14px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      color: #fff;
+      font-size: 14px;
+      transition: border-color 0.2s ease;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: #6366f1;
+    }
+
+    .color-pickers {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .color-input-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 6px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--card-border);
+    }
+
+    .color-picker {
+      -webkit-appearance: none;
+      border: none;
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      cursor: pointer;
+      background: transparent;
+    }
+
+    .color-picker::-webkit-color-swatch-wrapper { padding: 0; }
+    .color-picker::-webkit-color-swatch { border: none; border-radius: 8px; }
+
+    .modal-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .btn-submit {
+      flex: 1;
+      background: #6366f1;
+      color: #fff;
+      border: none;
+      padding: 12px;
+      border-radius: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .btn-submit:hover { background: #4f46e5; }
+
+    .btn-cancel {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-sub);
+      border: none;
+      padding: 12px 18px;
+      border-radius: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+  </style>
 </head>
-<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 min-h-screen flex flex-col justify-between selection:bg-sky-500 selection:text-white">
+<body>
 
-    <!-- Background Ambient Colors -->
-    <div class="ambient-bg">
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
-        <div class="blob blob-3"></div>
+  <!-- Header -->
+  <header>
+    <div class="avatar-wrapper">
+      <div class="avatar-img">👨‍💻</div>
     </div>
+    <h1 class="header-title">مشاريع <span>z3omohd</span></h1>
+    <p class="header-sub">بوابة الوصول السريع لجميع التطبيقات والمشاريع</p>
+  </header>
 
-    <!-- Header & Search Bar -->
-    <header class="sticky top-0 z-50 glass-header py-4 px-4 sm:px-8 shadow-sm">
-        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-            
-            <!-- User Info / Logo -->
-            <div class="flex items-center gap-3">
-                <img src="https://github.com/z3omohd.png" onerror="this.src='https://placehold.co/100/3b82f6/fff?text=Z3'" alt="z3omohd" class="w-10 h-10 rounded-full ring-2 ring-sky-400/60 object-cover shadow-sm">
-                <div>
-                    <h1 class="font-bold text-base leading-tight">مشاريع z3omohd</h1>
-                    <p class="text-[11px] text-slate-500 dark:text-slate-400">بوابة الوصول السريع</p>
-                </div>
+  <!-- Controls -->
+  <div class="controls-bar">
+    <div class="search-box">
+      <i data-lucide="search"></i>
+      <input type="text" id="searchInput" class="search-input" placeholder="بحث سريع في المشاريع...">
+    </div>
+  </div>
+
+  <!-- App Grid -->
+  <div class="app-grid" id="appGrid">
+    <!-- Grid items rendered dynamically -->
+  </div>
+
+  <!-- Floating Add Button -->
+  <button class="fab-add" onclick="openModal()">
+    <i data-lucide="plus"></i>
+    إضافة مشروع جديد
+  </button>
+
+  <!-- Modal -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">
+          <i data-lucide="sparkles" style="color: #6366f1;"></i>
+          إضافة مشروع جديد
+        </h3>
+        <button class="close-btn" onclick="closeModal()"><i data-lucide="x"></i></button>
+      </div>
+
+      <form id="addProjectForm" onsubmit="handleSaveProject(event)">
+        <div class="form-group">
+          <label class="form-label">اسم المستودع (ID)</label>
+          <input type="text" id="repoId" class="form-input" placeholder="مثال: my-new-app" required oninput="autoFillTitle(this.value)">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">العنوان المعروض</label>
+          <input type="text" id="displayTitle" class="form-input" placeholder="مثال: My New App" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">الأيقونة (Lucide Icon Name)</label>
+          <input type="text" id="iconName" class="form-input" value="layers" placeholder="layers, shield, wallet, activity...">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">تدرج الألوان</label>
+          <div class="color-pickers">
+            <div class="color-input-wrapper">
+              <input type="color" id="color1" class="color-picker" value="#3b82f6">
+              <span style="font-size: 12px; color: var(--text-sub);">اللون الأول</span>
             </div>
-
-            <!-- Compact Search Bar & Theme Switcher -->
-            <div class="flex items-center gap-2 w-full sm:w-auto">
-                <div class="relative w-full sm:w-72">
-                    <i data-lucide="search" class="w-4 h-4 absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
-                    <input type="text" id="search-input" placeholder="بحث سريع..." class="w-full pr-10 pl-4 py-2 text-xs bg-white/80 dark:bg-slate-800/80 backdrop-blur border border-slate-200 dark:border-slate-700/80 rounded-full focus:outline-none focus:ring-2 focus:ring-sky-500/50 transition-all text-slate-800 dark:text-slate-100 placeholder-slate-400">
-                </div>
-
-                <!-- Theme Toggle Button -->
-                <button id="theme-toggle" class="p-2.5 rounded-full bg-white/80 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/80 text-slate-700 dark:text-slate-200 hover:scale-105 transition-all shadow-sm shrink-0" title="تغيير المظهر">
-                    <i data-lucide="sun" class="w-4 h-4 hidden dark:block text-amber-400"></i>
-                    <i data-lucide="moon" class="w-4 h-4 block dark:hidden text-indigo-600"></i>
-                </button>
+            <div class="color-input-wrapper">
+              <input type="color" id="color2" class="color-picker" value="#8b5cf6">
+              <span style="font-size: 12px; color: var(--text-sub);">اللون الثاني</span>
             </div>
-
-        </div>
-    </header>
-
-    <!-- Main Content Grid -->
-    <main class="flex-grow max-w-6xl w-full mx-auto px-4 sm:px-8 py-8 flex flex-col justify-center">
-        
-        <!-- Repositories Compact Grid -->
-        <div id="buttons-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4">
-            <!-- Dynamic Buttons Generated Here -->
+          </div>
         </div>
 
-        <!-- Empty State Search Result -->
-        <div id="empty-state" class="hidden flex-col items-center justify-center py-12 text-center">
-            <i data-lucide="search-x" class="w-10 h-10 text-slate-400 mb-2"></i>
-            <p class="text-xs text-slate-500 dark:text-slate-400">لا يوجد مشروع بهذا الاسم</p>
+        <div class="modal-actions">
+          <button type="submit" class="btn-submit">حفظ المشروع</button>
+          <button type="button" class="btn-cancel" onclick="closeModal()">إلغاء</button>
         </div>
+      </form>
+    </div>
+  </div>
 
-    </main>
+  <script>
+    const USERNAME = 'z3omohd';
 
-    <!-- Footer -->
-    <footer class="py-4 text-center text-[11px] text-slate-400 dark:text-slate-500">
-        z3omohd • GitHub Pages Portal
-    </footer>
+    // Default Initial Repositories
+    const defaultApps = [
+      { id: 'Faris', title: 'Faris', icon: 'shield-check', colors: ['#ec4899', '#8b5cf6'] },
+      { id: 'talk', title: 'Talk', icon: 'message-square', colors: ['#3b82f6', '#1d4ed8'] },
+      { id: 'spend', title: 'Spend', icon: 'wallet', colors: ['#f59e0b', '#d97706'] },
+      { id: 'salary', title: 'Salary', icon: 'badge-dollar-sign', colors: ['#10b981', '#059669'] },
+      { id: 'convert', title: 'Convert', icon: 'refresh-cw', colors: ['#06b6d4', '#3b82f6'] },
+      { id: 'life-tracker', title: 'Life Tracker', icon: 'activity', colors: ['#ef4444', '#f43f5e'] },
+      { id: 'sun', title: 'Sun', icon: 'sun', colors: ['#eab308', '#f97316'] },
+      { id: 'salary-data', title: 'Salary Data', icon: 'database', colors: ['#10b981', '#047857'] },
+      { id: 'events', title: 'Events', icon: 'party-popper', colors: ['#f43f5e', '#a855f7'] },
+      { id: 'cm', title: 'CM', icon: 'briefcase', colors: ['#6366f1', '#4f46e5'] },
+      { id: 'fav', title: 'Fav', icon: 'bookmark', colors: ['#ec4899', '#f43f5e'] },
+      { id: 'period', title: 'Period', icon: 'hourglass', colors: ['#a855f7', '#7c3aed'] },
+      { id: 'control', title: 'Control', icon: 'sliders', colors: ['#64748b', '#334155'] },
+      { id: 'timer', title: 'Timer', icon: 'timer', colors: ['#0284c7', '#2563eb'] }
+    ];
 
-    <!-- Logic Script -->
-    <script>
-        // List of all 18 repositories with matching vibrant icons and gradients
-        const projects = [
-            { id: 'talk', name: 'Talk', icon: 'message-square', color: 'from-blue-500 to-indigo-500' },
-            { id: 'Faris', name: 'Faris', icon: 'shield-check', color: 'from-purple-500 to-pink-500' },
-            { id: 'salary', name: 'Salary', icon: 'badge-dollar-sign', color: 'from-emerald-500 to-teal-500' },
-            { id: 'spend', name: 'Spend', icon: 'wallet', color: 'from-amber-500 to-orange-500' },
-            { id: 'life-tracker', name: 'Life Tracker', icon: 'activity', color: 'from-rose-500 to-red-500' },
-            { id: 'convert', name: 'Convert', icon: 'refresh-cw', color: 'from-cyan-500 to-blue-500' },
-            { id: 'salary-data', name: 'Salary Data', icon: 'database', color: 'from-emerald-600 to-green-600' },
-            { id: 'sun', name: 'Sun', icon: 'sun', color: 'from-amber-400 to-yellow-500' },
-            { id: 'cm', name: 'CM', icon: 'briefcase', color: 'from-indigo-500 to-purple-600' },
-            { id: 'events', name: 'Events', icon: 'party-popper', color: 'from-pink-500 to-rose-500' },
-            { id: 'period', name: 'Period', icon: 'hourglass', color: 'from-violet-500 to-purple-500' },
-            { id: 'fav', name: 'Fav', icon: 'bookmark', color: 'from-red-400 to-pink-500' },
-            { id: 'timer', name: 'Timer', icon: 'timer', color: 'from-sky-500 to-indigo-500' },
-            { id: 'control', name: 'Control', icon: 'sliders', color: 'from-slate-600 to-slate-800' },
-            { id: 'term', name: 'Term', icon: 'terminal', color: 'from-teal-500 to-emerald-600' },
-            { id: 'sport', name: 'Sport', icon: 'dumbbell', color: 'from-orange-500 to-amber-600' },
-            { id: 'calend', name: 'Calend', icon: 'calendar', color: 'from-blue-600 to-indigo-600' },
-            { id: 'it', name: 'IT', icon: 'cpu', color: 'from-cyan-600 to-teal-700' }
-        ];
+    let projects = JSON.parse(localStorage.getItem('z3omohd_projects')) || defaultApps;
 
-        // Dark / Light Mode Logic
-        const themeToggleBtn = document.getElementById('theme-toggle');
-        
-        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
+    function renderApps(filterText = '') {
+      const grid = document.getElementById('appGrid');
+      grid.innerHTML = '';
 
-        themeToggleBtn.addEventListener('click', () => {
-            if (document.documentElement.classList.contains('dark')) {
-                document.documentElement.classList.remove('dark');
-                localStorage.setItem('theme', 'light');
-            } else {
-                document.documentElement.classList.add('dark');
-                localStorage.setItem('theme', 'dark');
-            }
-        });
+      const filtered = projects.filter(p => 
+        p.title.toLowerCase().includes(filterText.toLowerCase()) || 
+        p.id.toLowerCase().includes(filterText.toLowerCase())
+      );
 
-        // Render Buttons
-        function renderButtons(filter = '') {
-            const grid = document.getElementById('buttons-grid');
-            const emptyState = document.getElementById('empty-state');
-            grid.innerHTML = '';
+      filtered.forEach(app => {
+        const pageUrl = `https://${USERNAME}.github.io/${app.id}/`;
+        const repoUrl = `https://github.com/${USERNAME}/${app.id}`;
 
-            const filteredProjects = projects.filter(p => p.id.toLowerCase().includes(filter.toLowerCase()) || p.name.toLowerCase().includes(filter.toLowerCase()));
+        const cardWrapper = document.createElement('div');
+        cardWrapper.className = 'app-card-wrapper';
 
-            if (filteredProjects.length === 0) {
-                emptyState.classList.remove('hidden');
-                emptyState.classList.add('flex');
-            } else {
-                emptyState.classList.add('hidden');
-                emptyState.classList.remove('flex');
-            }
+        cardWrapper.innerHTML = `
+          <a href="${repoUrl}" target="_blank" class="github-link" title="المستودع على GitHub" onclick="event.stopPropagation();">
+            <i data-lucide="github"></i>
+          </a>
+          <a href="${pageUrl}" target="_blank" style="text-decoration: none; color: inherit;">
+            <div class="app-card">
+              <div class="icon-box" style="background: linear-gradient(135deg, ${app.colors[0]}, ${app.colors[1]});">
+                <i data-lucide="${app.icon || 'layers'}"></i>
+              </div>
+              <div class="app-title">${app.title}</div>
+              <div class="app-id">${app.id}</div>
+            </div>
+          </a>
+        `;
 
-            filteredProjects.forEach(proj => {
-                const targetUrl = `https://z3omohd.github.io/${proj.id}/`;
+        grid.appendChild(cardWrapper);
+      });
 
-                const btn = document.createElement('a');
-                btn.href = targetUrl;
-                btn.target = '_blank';
-                btn.className = 'glass-btn rounded-2xl p-3.5 flex flex-col items-center justify-center gap-2 group cursor-pointer border select-none';
+      lucide.createIcons();
+    }
 
-                btn.innerHTML = `
-                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br ${proj.color} text-white flex items-center justify-center shadow-md transition-transform group-hover:scale-110">
-                        <i data-lucide="${proj.icon}" class="w-5 h-5"></i>
-                    </div>
-                    <span class="font-medium text-xs text-slate-700 dark:text-slate-200 group-hover:text-sky-500 dark:group-hover:text-sky-400 transition-colors truncate w-full text-center">
-                        ${proj.name}
-                    </span>
-                `;
+    // Modal controls
+    function openModal() {
+      document.getElementById('modalOverlay').classList.add('active');
+    }
 
-                grid.appendChild(btn);
-            });
+    function closeModal() {
+      document.getElementById('modalOverlay').classList.remove('active');
+      document.getElementById('addProjectForm').reset();
+    }
 
-            lucide.createIcons();
-        }
+    function autoFillTitle(val) {
+      if(val) {
+        document.getElementById('displayTitle').value = val.charAt(0).toUpperCase() + val.slice(1);
+      }
+    }
 
-        // Search Filter Event
-        document.getElementById('search-input').addEventListener('input', (e) => {
-            renderButtons(e.target.value);
-        });
+    function handleSaveProject(e) {
+      e.preventDefault();
+      const id = document.getElementById('repoId').value.trim();
+      const title = document.getElementById('displayTitle').value.trim();
+      const icon = document.getElementById('iconName').value.trim() || 'layers';
+      const c1 = document.getElementById('color1').value;
+      const c2 = document.getElementById('color2').value;
 
-        // Initial Load
-        window.onload = () => {
-            renderButtons();
-        };
-    </script>
+      if (!id || !title) return;
+
+      const newProject = {
+        id: id,
+        title: title,
+        icon: icon,
+        colors: [c1, c2]
+      };
+
+      projects.unshift(newProject);
+      localStorage.setItem('z3omohd_projects', JSON.stringify(projects));
+      
+      renderApps();
+      closeModal();
+    }
+
+    // Search event
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      renderApps(e.target.value);
+    });
+
+    // Initial Render
+    renderApps();
+  </script>
 </body>
 </html>
