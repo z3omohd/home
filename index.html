@@ -6,18 +6,18 @@
   <title>مشاريع z3omohd | Launchpad</title>
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
-  <!-- Google Fonts: Plus Jakarta Sans & Tajawal -->
+  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700&family=Tajawal:wght@500;700;800&display=swap" rel="stylesheet">
   
   <style>
     :root {
       --bg-dark: #0b0f19;
-      --card-bg: rgba(22, 29, 47, 0.7);
+      --card-bg: rgba(22, 29, 47, 0.75);
       --card-border: rgba(255, 255, 255, 0.08);
-      --card-hover-border: rgba(255, 255, 255, 0.2);
+      --card-hover-border: rgba(255, 255, 255, 0.25);
       --text-main: #f3f4f6;
       --text-sub: #9ca3af;
-      --glass-glow: rgba(99, 102, 241, 0.15);
+      --glass-glow: rgba(99, 102, 241, 0.2);
     }
 
     * {
@@ -31,25 +31,33 @@
     body {
       background-color: var(--bg-dark);
       background-image: 
-        radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(168, 85, 247, 0.1) 0%, transparent 40%);
+        radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.18) 0%, transparent 60%),
+        radial-gradient(circle at 80% 90%, rgba(168, 85, 247, 0.12) 0%, transparent 50%);
       background-attachment: fixed;
       color: var(--text-main);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 24px 16px 120px;
+      padding: 32px 24px 120px;
+    }
+
+    /* Main Container Wide Layout */
+    .container {
+      width: 100%;
+      max-width: 1200px; /* توسيع العرض ليشمل كامل الشاشة */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     /* Header */
     header {
       width: 100%;
-      max-width: 480px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-bottom: 24px;
+      margin-bottom: 28px;
       text-align: center;
     }
 
@@ -59,25 +67,25 @@
     }
 
     .avatar-img {
-      width: 64px;
-      height: 64px;
+      width: 68px;
+      height: 68px;
       border-radius: 50%;
       background: linear-gradient(135deg, #6366f1, #a855f7);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 28px;
-      box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+      font-size: 30px;
+      box-shadow: 0 8px 24px rgba(99, 102, 241, 0.35);
       border: 2px solid rgba(255, 255, 255, 0.2);
     }
 
     .header-title {
-      font-size: 22px;
+      font-size: 26px;
       font-weight: 800;
       letter-spacing: -0.5px;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
     }
 
     .header-title span {
@@ -88,18 +96,18 @@
     }
 
     .header-sub {
-      font-size: 13px;
+      font-size: 14px;
       color: var(--text-sub);
       margin-top: 4px;
     }
 
-    /* Controls Bar */
+    /* Controls Bar Wide */
     .controls-bar {
       width: 100%;
-      max-width: 480px;
+      max-width: 560px;
       display: flex;
       gap: 12px;
-      margin-bottom: 28px;
+      margin-bottom: 36px;
     }
 
     .search-box {
@@ -109,43 +117,41 @@
 
     .search-box i {
       position: absolute;
-      right: 14px;
+      right: 16px;
       top: 50%;
       transform: translateY(-50%);
       color: var(--text-sub);
-      width: 18px;
-      height: 18px;
+      width: 20px;
+      height: 20px;
     }
 
     .search-input {
       width: 100%;
-      padding: 12px 42px 12px 16px;
+      padding: 14px 48px 14px 18px;
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid var(--card-border);
-      border-radius: 16px;
+      border-radius: 20px;
       color: #fff;
-      font-size: 14px;
-      backdrop-filter: blur(10px);
-      transition: all 0.2s ease;
+      font-size: 15px;
+      backdrop-filter: blur(12px);
+      transition: all 0.25s ease;
     }
 
     .search-input:focus {
       outline: none;
       border-color: #6366f1;
       background: rgba(255, 255, 255, 0.08);
-      box-shadow: 0 0 15px rgba(99, 102, 241, 0.2);
+      box-shadow: 0 0 20px rgba(99, 102, 241, 0.25);
     }
 
-    /* App Grid */
+    /* Wide Responsive App Grid */
     .app-grid {
       width: 100%;
-      max-width: 480px;
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* تمدد عرضي ديناميكي */
+      gap: 20px;
     }
 
-    /* App Card / Link Container */
     .app-card-wrapper {
       position: relative;
       text-decoration: none;
@@ -156,12 +162,12 @@
       background: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: 24px;
-      padding: 20px 16px;
+      padding: 24px 16px 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur(16px);
       transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
       cursor: pointer;
       position: relative;
@@ -173,16 +179,16 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), transparent);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), transparent);
       opacity: 0;
       transition: opacity 0.25s ease;
     }
 
     .app-card-wrapper:hover .app-card,
     .app-card-wrapper:active .app-card {
-      transform: translateY(-4px);
+      transform: translateY(-6px);
       border-color: var(--card-hover-border);
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4), 0 0 20px var(--glass-glow);
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.45), 0 0 25px var(--glass-glow);
     }
 
     .app-card-wrapper:hover .app-card::before {
@@ -190,24 +196,24 @@
     }
 
     .icon-box {
-      width: 56px;
-      height: 56px;
-      border-radius: 18px;
+      width: 60px;
+      height: 60px;
+      border-radius: 20px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 12px;
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      margin-bottom: 14px;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
       transition: transform 0.25s ease;
     }
 
     .app-card-wrapper:hover .icon-box {
-      transform: scale(1.08);
+      transform: scale(1.1);
     }
 
     .icon-box i {
-      width: 26px;
-      height: 26px;
+      width: 28px;
+      height: 28px;
       color: #ffffff;
     }
 
@@ -224,10 +230,10 @@
       color: var(--text-sub);
       font-size: 11px;
       font-family: 'Plus Jakarta Sans', monospace;
-      opacity: 0.7;
+      opacity: 0.65;
     }
 
-    /* GitHub Repo Link Badge */
+    /* GitHub Badge */
     .github-link {
       position: absolute;
       top: 10px;
@@ -235,7 +241,7 @@
       width: 28px;
       height: 28px;
       border-radius: 50%;
-      background: rgba(0, 0, 0, 0.3);
+      background: rgba(0, 0, 0, 0.35);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -247,9 +253,9 @@
     }
 
     .github-link:hover {
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.25);
       color: #fff;
-      transform: scale(1.1);
+      transform: scale(1.12);
     }
 
     .github-link i {
@@ -260,36 +266,36 @@
     /* Floating Add Button */
     .fab-add {
       position: fixed;
-      bottom: 24px;
+      bottom: 28px;
       left: 50%;
       transform: translateX(-50%);
       background: linear-gradient(135deg, #6366f1, #a855f7);
       color: #fff;
       border: none;
-      padding: 14px 28px;
+      padding: 14px 32px;
       border-radius: 30px;
       font-size: 15px;
       font-weight: 700;
       display: flex;
       align-items: center;
-      gap: 8px;
-      box-shadow: 0 10px 25px rgba(99, 102, 241, 0.4);
+      gap: 10px;
+      box-shadow: 0 10px 30px rgba(99, 102, 241, 0.45);
       cursor: pointer;
       z-index: 10;
       transition: all 0.25s ease;
     }
 
     .fab-add:hover {
-      transform: translateX(-50%) scale(1.05);
-      box-shadow: 0 12px 30px rgba(99, 102, 241, 0.6);
+      transform: translateX(-50%) scale(1.06);
+      box-shadow: 0 14px 35px rgba(99, 102, 241, 0.65);
     }
 
-    /* Modal Styling */
+    /* Modal */
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(8px);
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(10px);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -309,10 +315,10 @@
       background: #111827;
       border: 1px solid var(--card-border);
       border-radius: 28px;
-      padding: 24px;
+      padding: 28px;
       width: 100%;
-      max-width: 400px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+      max-width: 420px;
+      box-shadow: 0 24px 50px rgba(0, 0, 0, 0.7);
       transform: translateY(20px);
       transition: transform 0.25s ease;
     }
@@ -383,7 +389,7 @@
       align-items: center;
       gap: 8px;
       background: rgba(255, 255, 255, 0.05);
-      padding: 6px 12px;
+      padding: 8px 12px;
       border-radius: 12px;
       border: 1px solid var(--card-border);
     }
@@ -434,26 +440,28 @@
 </head>
 <body>
 
-  <!-- Header -->
-  <header>
-    <div class="avatar-wrapper">
-      <div class="avatar-img">👨‍💻</div>
-    </div>
-    <h1 class="header-title">مشاريع <span>z3omohd</span></h1>
-    <p class="header-sub">بوابة الوصول السريع لجميع التطبيقات والمشاريع</p>
-  </header>
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <div class="avatar-wrapper">
+        <div class="avatar-img">👨‍💻</div>
+      </div>
+      <h1 class="header-title">مشاريع <span>z3omohd</span></h1>
+      <p class="header-sub">بوابة الوصول السريع لجميع التطبيقات والمشاريع</p>
+    </header>
 
-  <!-- Controls -->
-  <div class="controls-bar">
-    <div class="search-box">
-      <i data-lucide="search"></i>
-      <input type="text" id="searchInput" class="search-input" placeholder="بحث سريع في المشاريع...">
+    <!-- Controls -->
+    <div class="controls-bar">
+      <div class="search-box">
+        <i data-lucide="search"></i>
+        <input type="text" id="searchInput" class="search-input" placeholder="بحث سريع في المشاريع...">
+      </div>
     </div>
-  </div>
 
-  <!-- App Grid -->
-  <div class="app-grid" id="appGrid">
-    <!-- Grid items rendered dynamically -->
+    <!-- Wide App Grid -->
+    <div class="app-grid" id="appGrid">
+      <!-- Grid items rendered dynamically -->
+    </div>
   </div>
 
   <!-- Floating Add Button -->
@@ -514,7 +522,6 @@
   <script>
     const USERNAME = 'z3omohd';
 
-    // Default Initial Repositories
     const defaultApps = [
       { id: 'Faris', title: 'Faris', icon: 'shield-check', colors: ['#ec4899', '#8b5cf6'] },
       { id: 'talk', title: 'Talk', icon: 'message-square', colors: ['#3b82f6', '#1d4ed8'] },
@@ -571,7 +578,6 @@
       lucide.createIcons();
     }
 
-    // Modal controls
     function openModal() {
       document.getElementById('modalOverlay').classList.add('active');
     }
@@ -611,12 +617,10 @@
       closeModal();
     }
 
-    // Search event
     document.getElementById('searchInput').addEventListener('input', (e) => {
       renderApps(e.target.value);
     });
 
-    // Initial Render
     renderApps();
   </script>
 </body>
