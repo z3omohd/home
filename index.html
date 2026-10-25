@@ -229,6 +229,7 @@
       opacity: 0.65;
     }
 
+    /* GitHub Badge */
     .github-link {
       position: absolute;
       top: 10px;
@@ -253,9 +254,35 @@
       transform: scale(1.12);
     }
 
-    .github-link i {
-      width: 14px;
-      height: 14px;
+    /* Delete Button */
+    .delete-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(239, 68, 68, 0.2);
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #f87171;
+      cursor: pointer;
+      z-index: 2;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(4px);
+      opacity: 0;
+    }
+
+    .app-card-wrapper:hover .delete-btn {
+      opacity: 1;
+    }
+
+    .delete-btn:hover {
+      background: rgba(239, 68, 68, 0.8);
+      color: #fff;
+      transform: scale(1.12);
     }
 
     .fab-add {
@@ -510,9 +537,8 @@
   <!-- Firebase SDKs -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getFirestore, collection, onSnapshot, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { getFirestore, collection, onSnapshot, doc, setDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-    // Firebase Config Connected
     const firebaseConfig = {
       apiKey: "AIzaSyCNTNLQKAsdaFPx04Hp4q8mr7lB2kMuvak",
       authDomain: "home-fafc4.firebaseapp.com",
@@ -568,6 +594,17 @@
       });
     }
 
+    window.deleteProject = async function(id) {
+      if (confirm(`هل أنت تأكد من رغبتك في حذف المشروع "${id}"؟`)) {
+        if (db) {
+          await deleteDoc(doc(db, 'projects', id));
+        } else {
+          projects = projects.filter(p => p.id !== id);
+          renderApps();
+        }
+      }
+    }
+
     window.renderApps = function(filterText = '') {
       const grid = document.getElementById('appGrid');
       grid.innerHTML = '';
@@ -588,6 +625,9 @@
           <a href="${repoUrl}" target="_blank" class="github-link" title="المستودع على GitHub" onclick="event.stopPropagation();">
             <i data-lucide="github"></i>
           </a>
+          <button class="delete-btn" title="حذف المشروع" onclick="event.stopPropagation(); deleteProject('${app.id}')">
+            <i data-lucide="trash-2" style="width: 14px; height: 14px;"></i>
+          </button>
           <a href="${pageUrl}" target="_blank" style="text-decoration: none; color: inherit;">
             <div class="app-card">
               <div class="icon-box" style="background: linear-gradient(135deg, ${app.colors[0]}, ${app.colors[1]});">
